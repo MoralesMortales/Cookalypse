@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Label tabindex="-1" text="Label\nasdf&#10;&lt;b&gt;asdf&lt;/b&gt;&#10;qwe&#10;erty" parse-escape-sequences="true" display-tooltip-when-elided="true" name="textLabel" style="margin-top: 0; margin-right: 5px; margin-bottom: 0; margin-left: 5px; padding-top: 0; padding-right: 2px; padding-bottom: 0; padding-left: 2px; white-space: normal; -unity-paragraph-spacing: 70px;" />
+</ui:UXML>

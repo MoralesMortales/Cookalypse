@@ -1,0 +1,33 @@
+.custom-label {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(68, 138, 255);
+}
+
+.header {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(255, 244, 0);
+    -unity-text-align: upper-center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    white-space: normal;
+}
+
+.lectureButton {
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.cursor-link {
+    cursor: link;
+}
+
+.qotdAnswerButton {
+}

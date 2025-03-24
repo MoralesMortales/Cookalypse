@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Assets/CodeMonkeyFree/Editor/Templates/VideoTemplate.uss?fileID=7433441132597879392&amp;guid=92480aa49dc3b214eaaf425042e006a8&amp;type=3#VideoTemplate" />
-    <ui:VisualElement name="videoContainer" style="flex-grow: 0;">
-        <ui:VisualElement name="image" class="cursor-link" style="flex-grow: 1; align-items: center; height: 150px; min-height: 70px; max-height: 150px; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; background-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/CodeMonkeyFree/Textures/CodeMonkeyLogoSmallHeight.png?fileID=2800000&amp;guid=7ddeb48e951f72446b79a79cc209e604&amp;type=3#CodeMonkeyLogoSmallHeight&quot;);" />
-        <ui:Label tabindex="-1" text="How to do something" parse-escape-sequences="true" display-tooltip-when-elided="true" name="titleLabel" class="cursor-link" style="font-size: 12px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal;" />
-    </ui:VisualElement>
-</ui:UXML>

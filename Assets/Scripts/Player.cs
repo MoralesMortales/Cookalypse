@@ -41,6 +41,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
    private void MovePlayer()
    
     {
+        
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }

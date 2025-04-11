@@ -27,8 +27,6 @@ public GameObject PickUpText;
             }
 
         }
-
-    
     }
 
     private void OnTriggerExit(Collider other)

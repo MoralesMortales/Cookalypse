@@ -5,9 +5,9 @@ public class PickUpScript : MonoBehaviour
     public GameObject player;
     public Transform holdPos;
 
-    public float throwForce = 500f; 
+    public float throwForce = 500000f; 
     public float pickUpRange = 5f; 
-    private float rotationSensitivity = 1f; 
+    private float rotationSensitivity = 100f; 
     private GameObject heldObj; //object which we pick up
     private Rigidbody heldObjRb; //rigidbody of object we pick up
     private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object

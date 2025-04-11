@@ -89,9 +89,9 @@ public class PickUpScript : MonoBehaviour
     }
     void RotateObject()
     {
-        if (Input.GetKey(KeyCode.R))//hold R key to rotate, change this to whatever key you want
+        if (Input.GetKey(KeyCode.R))
         {
-            canDrop = false; //make sure throwing can't occur during rotating
+            canDrop = false;
 
             //disable player being able to look around
             //mouseLookScript.verticalSensitivity = 0f;

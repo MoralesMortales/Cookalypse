@@ -170,7 +170,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.1, y: 0.85, z: 2.62}
+  m_Size: {x: 1.88, y: 1, z: 0.65}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &43712727
 PrefabInstance:
@@ -927,7 +927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 332921657}
   m_Layer: 0
-  m_Name: basis
+  m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2751,7 +2751,7 @@ GameObject:
   - component: {fileID: 805820903}
   m_Layer: 0
   m_Name: closed
-  m_TagString: Untagged
+  m_TagString: canPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4724,7 +4724,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1589345869}
   - component: {fileID: 1589345872}
-  - component: {fileID: 1589345871}
   - component: {fileID: 1589345870}
   m_Layer: 0
   m_Name: PickUpCamera
@@ -4792,14 +4791,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1589345871
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589345868}
-  m_Enabled: 1
 --- !u!20 &1589345872
 Camera:
   m_ObjectHideFlags: 0
@@ -5990,7 +5981,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: o
+  m_text: press Q
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6055,7 +6046,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 49.38864, y: 0, z: 58.22809, w: 0}
+  m_margin: {x: -3.9860287, y: 0, z: -5.422558, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6314,7 +6305,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: -0.48, y: 1, z: 0.44}
+  m_Size: {x: 0.48, y: 1, z: 0.44}
   m_Center: {x: -1.31, y: 0.08, z: 1.36}
 --- !u!1 &2033016133
 GameObject:
@@ -6329,9 +6320,11 @@ GameObject:
   - component: {fileID: 2033016137}
   - component: {fileID: 2033016136}
   - component: {fileID: 2033016135}
+  - component: {fileID: 2033016139}
+  - component: {fileID: 2033016140}
   m_Layer: 0
   m_Name: tomato (1)
-  m_TagString: canPickUp
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6452,6 +6445,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033016133}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2033016139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033016133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53efc5e34cd65fc43a841238e5c89e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2033016140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033016133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7e4dd3768974744be551316fd19d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - cutted
+  - canCut
 --- !u!1 &2062016002
 GameObject:
   m_ObjectHideFlags: 0
@@ -6525,7 +6545,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 607100571150c6747b23ce817234be64, type: 3}
       propertyPath: m_LocalScale.x
-      value: -38.883373
+      value: 38.88337
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 607100571150c6747b23ce817234be64, type: 3}
       propertyPath: m_LocalScale.y

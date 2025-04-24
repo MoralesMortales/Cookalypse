@@ -3,12 +3,10 @@ using System.Collections.Generic;
 
 public class AssignMultipleTags : MonoBehaviour
 {
-    [SerializeField] private List<string> tags = new List<string>(); // Usamos List para el Inspector
+    [SerializeField] private List<string> tags = new List<string>(); 
 
-    // Verifica si tiene un tag
     public bool HasTag(string tagToCheck) => tags.Contains(tagToCheck);
 
-    // Añade un tag (con validación)
     public void AddTag(string newTag)
     {
         if (string.IsNullOrEmpty(newTag))

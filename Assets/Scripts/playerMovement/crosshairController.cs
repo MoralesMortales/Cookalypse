@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class crosshairController : MonoBehaviour
+public class CrosshairController : MonoBehaviour
 {
     [Header("Settings")]
     public float checkDistance = 7f;
@@ -14,9 +13,19 @@ public class crosshairController : MonoBehaviour
 
     void Update()
     {
-RaycastHit hit;
-bool isLookingAtTarget = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, checkDistance) && hit.collider.CompareTag(interactTag);
+        RaycastHit hit;
+        bool isLookingAtTarget = false;
 
-crosshair.color = isLookingAtTarget ? interactColor : defaultColor;
+        // Lanza el raycast
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, checkDistance))
+        {
+            AssignMultipleTags objTags = hit.collider.GetComponent<AssignMultipleTags>();
+            if (objTags != null && objTags.HasTag(interactTag))
+            {
+                isLookingAtTarget = true;
+            }
+        }
+
+        crosshair.color = isLookingAtTarget ? interactColor : defaultColor;
     }
 }

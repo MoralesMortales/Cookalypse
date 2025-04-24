@@ -1270,6 +1270,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: knifeObject
       objectReference: {fileID: 0}
+    - target: {fileID: 7970623982454138578, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
+      propertyPath: tags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970623982454138578, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
+      propertyPath: 'tags.Array.data[1]'
+      value: tool
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3542,7 +3550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3991786500328190235, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6219,6 +6227,7 @@ MonoBehaviour:
   holdPos: {fileID: 634915458}
   throwForce: 500
   pickUpRange: 7.19
+  tool: {fileID: 0}
 --- !u!114 &1892532021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6827,7 +6836,7 @@ Transform:
   m_GameObject: {fileID: 2033016133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.311, y: -1.37, z: 40.47}
+  m_LocalPosition: {x: -14.311, y: -2.779, z: 40.47}
   m_LocalScale: {x: 0.23406601, y: 0.23406601, z: 0.23406601}
   m_ConstrainProportionsScale: 1
   m_Children: []

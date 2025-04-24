@@ -12,6 +12,7 @@ public class PickUpScript : MonoBehaviour
     private Rigidbody heldObjRb; //rigidbody of object we pick up
     private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object
     private int LayerNumber; //layer index
+    public GameObject tool;
 
     void Start()
     {
@@ -38,8 +39,18 @@ public class PickUpScript : MonoBehaviour
 
                     if (objTags != null && objTags.HasTag("canPickUp"))
                     {
-                        //pass in object hit into the PickUpObject function
-                        PickUpObject(hit.transform.gameObject);
+                        if (objTags.HasTag("tool"))
+                        {
+                            Debug.Log("its a toolll");
+                            tool = hit.transform.gameObject;
+
+                            this.gameObject.SetActive(false);
+                            tool.SetActive(true);
+                        }
+                        else
+                        {
+                            PickUpObject(hit.transform.gameObject);
+                        }
                     }
                 }
             }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpScript : MonoBehaviour
@@ -8,15 +9,29 @@ public class PickUpScript : MonoBehaviour
     public float throwForce = 500f;
     public float pickUpRange = 7f;
     private float rotationSensitivity = 50f;
-    private GameObject heldObj; //object which we pick up
-    private Rigidbody heldObjRb; //rigidbody of object we pick up
-    private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object
-    private int LayerNumber; //layer index
-    public GameObject tool;
+    private GameObject heldObj;
+    private GameObject tool;
+    private Rigidbody heldObjRb;
+    private bool canDrop = true;
+    private int LayerNumber;
+
+    [System.Serializable]
+    public class ToolData
+    {
+        public GameObject toolOnView;
+        public GameObject toolOnGrab;
+    }
+
+    public List<ToolData> toolDatabase = new List<ToolData>();
 
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer");
+
+        foreach (ToolData tool in toolDatabase)
+        {
+            Debug.Log(tool);
+        }
     }
 
     void Update()

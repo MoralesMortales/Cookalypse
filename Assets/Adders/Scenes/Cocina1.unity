@@ -6048,8 +6048,8 @@ GameObject:
   - component: {fileID: 1892532014}
   - component: {fileID: 1892532017}
   - component: {fileID: 1892532016}
+  - component: {fileID: 1892532022}
   - component: {fileID: 1892532015}
-  - component: {fileID: 1892532020}
   - component: {fileID: 1892532021}
   - component: {fileID: 1892532018}
   - component: {fileID: 1892532019}
@@ -6211,23 +6211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   orientation: {fileID: 1458151948}
---- !u!114 &1892532020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892532013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d54d7297398f184f967b7c524f47165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 484267115}
-  holdPos: {fileID: 634915458}
-  throwForce: 500
-  pickUpRange: 7.19
-  tool: {fileID: 0}
 --- !u!114 &1892532021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6243,6 +6226,23 @@ MonoBehaviour:
   checkDistance: 7
   interactTag: canPickUp
   crosshair: {fileID: 909254347}
+--- !u!114 &1892532022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892532013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d54d7297398f184f967b7c524f47165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 484267115}
+  holdPos: {fileID: 634915458}
+  throwForce: 500
+  pickUpRange: 7
+  tool: {fileID: 0}
 --- !u!1001 &1908121237
 PrefabInstance:
   m_ObjectHideFlags: 0

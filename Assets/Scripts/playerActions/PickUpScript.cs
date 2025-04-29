@@ -64,6 +64,7 @@ public class PickUpScript : MonoBehaviour
                                     Debug.Log("its a", toolDatabase[i].toolOnView);
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
+                                    PickUpObject(toolDatabase[i].toolOnView);
                                     break;
                                 }
                             }

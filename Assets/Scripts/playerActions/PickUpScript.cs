@@ -51,15 +51,19 @@ public class PickUpScript : MonoBehaviour
                     {
                         if (objTags.HasTag("tool"))
                         {
-                            Debug.Log("its a toolll");
 
                             GameObject currentTool = hit.transform.gameObject;
 
-                            foreach (ToolData tool in toolDatabase)
+                            Debug.Log(currentTool);
+
+                            for (int i = 0; i < toolDatabase.Count; i++)
                             {
-                                if (tool.toolOnView == currentTool)
+                                if (toolDatabase[i].toolOnView == currentTool)
                                 {
-                                    Debug.Log(tool);
+                                    Debug.Log("its a", toolDatabase[i].toolOnView);
+                                    toolDatabase[i].toolOnView.SetActive(false);
+                                    toolDatabase[i].toolOnGrab.SetActive(true);
+                                    break;
                                 }
                             }
                         }

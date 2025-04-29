@@ -61,10 +61,9 @@ public class PickUpScript : MonoBehaviour
                                 Debug.Log(toolDatabase[i].toolOnView);
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
-                                    Debug.Log("its a", toolDatabase[i].toolOnView);
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
-                                    PickUpObject(toolDatabase[i].toolOnView);
+                                    PickUpObject(toolDatabase[i].toolOnGrab);
                                     break;
                                 }
                             }

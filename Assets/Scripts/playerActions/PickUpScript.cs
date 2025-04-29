@@ -54,10 +54,11 @@ public class PickUpScript : MonoBehaviour
 
                             GameObject currentTool = hit.transform.gameObject;
 
-                            Debug.Log(currentTool);
+                            Debug.Log("current -> " + currentTool);
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
+                                Debug.Log(toolDatabase[i].toolOnView);
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
                                     Debug.Log("its a", toolDatabase[i].toolOnView);

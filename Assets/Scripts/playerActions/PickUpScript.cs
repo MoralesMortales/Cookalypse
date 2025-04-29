@@ -27,11 +27,6 @@ public class PickUpScript : MonoBehaviour
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer");
-
-        foreach (ToolData tool in toolDatabase)
-        {
-            Debug.Log(tool);
-        }
     }
 
     void Update()
@@ -57,10 +52,16 @@ public class PickUpScript : MonoBehaviour
                         if (objTags.HasTag("tool"))
                         {
                             Debug.Log("its a toolll");
-                            tool = hit.transform.gameObject;
 
-                            this.gameObject.SetActive(false);
-                            tool.SetActive(true);
+                            GameObject currentTool = hit.transform.gameObject;
+
+                            foreach (ToolData tool in toolDatabase)
+                            {
+                                if (tool.toolOnView == currentTool)
+                                {
+                                    Debug.Log(tool);
+                                }
+                            }
                         }
                         else
                         {

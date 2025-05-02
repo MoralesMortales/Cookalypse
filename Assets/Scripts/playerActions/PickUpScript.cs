@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpScript : MonoBehaviour
@@ -8,10 +9,21 @@ public class PickUpScript : MonoBehaviour
     public float throwForce = 500f;
     public float pickUpRange = 7f;
     private float rotationSensitivity = 50f;
-    private GameObject heldObj; //object which we pick up
-    private Rigidbody heldObjRb; //rigidbody of object we pick up
-    private bool canDrop = true; //this is needed so we don't throw/drop object when rotating the object
-    private int LayerNumber; //layer index
+    private GameObject heldObj;
+    private Rigidbody heldObjRb;
+    private bool canDrop = true;
+    private int LayerNumber;
+
+    private GameObject originalToolObj; // objeto con rigidbody y colisionador
+
+    [System.Serializable]
+    public class ToolData
+    {
+        public GameObject toolOnView;
+        public GameObject toolOnGrab;
+    }
+
+    public List<ToolData> toolDatabase = new List<ToolData>();
 
     void Start()
     {
@@ -36,10 +48,29 @@ public class PickUpScript : MonoBehaviour
                 {
                     AssignMultipleTags objTags = hit.transform.GetComponent<AssignMultipleTags>();
 
-                    if (objTags != null && objTags.HasTag("canPickUp"))
+                    if (objTags != null)
                     {
-                        //pass in object hit into the PickUpObject function
-                        PickUpObject(hit.transform.gameObject);
+                        if (objTags.HasTag("tool"))
+                        {
+                            GameObject currentTool = hit.transform.gameObject;
+
+                            for (int i = 0; i < toolDatabase.Count; i++)
+                            {
+                                if (toolDatabase[i].toolOnView == currentTool)
+                                {
+                                    toolDatabase[i].toolOnView.SetActive(false);
+                                    toolDatabase[i].toolOnGrab.SetActive(true);
+                                    originalToolObj = toolDatabase[i].toolOnView;
+
+                                    PickUpObject(toolDatabase[i].toolOnView);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            PickUpObject(hit.transform.gameObject);
+                        }
                     }
                 }
             }
@@ -47,14 +78,14 @@ public class PickUpScript : MonoBehaviour
             {
                 if (canDrop == true)
                 {
-                    StopClipping(); //prevents object from clipping through walls
+                    StopClipping();
                     DropObject();
                 }
             }
         }
-        if (heldObj != null) //if player is holding object
+        if (heldObj != null)
         {
-            MoveObject(); //keep object position at holdPos
+            MoveObject();
             RotateObject();
             if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
             {
@@ -66,14 +97,19 @@ public class PickUpScript : MonoBehaviour
 
     void PickUpObject(GameObject pickUpObj)
     {
-        if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
+        AssignMultipleTags objTags = pickUpObj.GetComponent<AssignMultipleTags>();
+
+        if (pickUpObj.GetComponent<Rigidbody>()) 
         {
-            heldObj = pickUpObj; //assign heldObj to the object that was hit by the raycast (no longer == null)
-            heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
-            heldObjRb.isKinematic = true;
-            heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
-            heldObj.layer = LayerNumber; //change the object layer to the holdLayer
-            //make sure object doesnt collide with player, it can cause weird bugs
+            heldObj = pickUpObj; 
+            heldObjRb = pickUpObj.GetComponent<Rigidbody>();             heldObjRb.isKinematic = true;
+            if (objTags.HasTag("tool")) { }
+            else
+            {
+                heldObjRb.transform.parent = holdPos.transform; 
+                heldObj.layer = LayerNumber; 
+            }
+
             Physics.IgnoreCollision(
                 heldObj.GetComponent<Collider>(),
                 player.GetComponent<Collider>(),
@@ -84,15 +120,51 @@ public class PickUpScript : MonoBehaviour
 
     void DropObject()
     {
-        Physics.IgnoreCollision(
-            heldObj.GetComponent<Collider>(),
-            player.GetComponent<Collider>(),
-            false
-        );
-        heldObj.layer = 0; //object assigned back to default layer
-        heldObjRb.isKinematic = false;
-        heldObj.transform.parent = null; //unparent object
-        heldObj = null; //undefine game object
+        bool isTool = false;
+        int toolIndex = -1;
+
+        for (int i = 0; i < toolDatabase.Count; i++)
+        {
+            if (toolDatabase[i].toolOnView == heldObj)
+            {
+                isTool = true;
+                toolIndex = i;
+                Debug.Log(originalToolObj);
+                break;
+            }
+        }
+
+        if (isTool && originalToolObj != null)
+        {
+            Debug.Log("trolololo");
+            GameObject toolToHide = toolDatabase[toolIndex].toolOnGrab;
+
+            toolToHide.SetActive(false);
+
+            // Reposicionar y activar el objeto físico original
+            originalToolObj.transform.position = holdPos.position;
+            originalToolObj.transform.rotation = holdPos.rotation;
+            originalToolObj.SetActive(true);
+
+            Rigidbody originalRb = originalToolObj.GetComponent<Rigidbody>();
+            originalRb.isKinematic = false;
+
+            heldObj = null;
+            originalToolObj = null;
+        }
+        else
+        {
+            Debug.Log("other trolo");
+            Physics.IgnoreCollision(
+                heldObj.GetComponent<Collider>(),
+                player.GetComponent<Collider>(),
+                false
+            );
+            heldObj.layer = 0;
+            heldObjRb.isKinematic = false;
+            heldObj.transform.parent = null;
+            heldObj = null;
+        }
     }
 
     void MoveObject()
@@ -128,17 +200,50 @@ public class PickUpScript : MonoBehaviour
 
     void ThrowObject()
     {
-        //same as drop function, but add force to object before undefining it
-        Physics.IgnoreCollision(
-            heldObj.GetComponent<Collider>(),
-            player.GetComponent<Collider>(),
-            false
-        );
-        heldObj.layer = 0;
-        heldObjRb.isKinematic = false;
-        heldObj.transform.parent = null;
-        heldObjRb.AddForce(transform.forward * throwForce);
-        heldObj = null;
+        bool isTool = false;
+        int toolIndex = -1;
+
+        for (int i = 0; i < toolDatabase.Count; i++)
+        {
+            if (toolDatabase[i].toolOnView == heldObj)
+            {
+                isTool = true;
+                toolIndex = i;
+                break;
+            }
+        }
+
+        if (isTool && originalToolObj != null)
+        {
+            GameObject toolToHide = toolDatabase[toolIndex].toolOnGrab;
+
+            toolToHide.SetActive(false);
+
+            // Reposicionar y activar el original
+            originalToolObj.transform.position = holdPos.position;
+            originalToolObj.transform.rotation = holdPos.rotation;
+            originalToolObj.SetActive(true);
+
+            Rigidbody thrownRb = originalToolObj.GetComponent<Rigidbody>();
+            thrownRb.isKinematic = false;
+            thrownRb.AddForce(transform.forward * throwForce);
+
+            heldObj = null;
+            originalToolObj = null; // Limpiar ref
+        }
+        else
+        {
+            Physics.IgnoreCollision(
+                heldObj.GetComponent<Collider>(),
+                player.GetComponent<Collider>(),
+                false
+            );
+            heldObj.layer = 0;
+            heldObjRb.isKinematic = false;
+            heldObj.transform.parent = null;
+            heldObjRb.AddForce(transform.forward * throwForce);
+            heldObj = null;
+        }
     }
 
     void StopClipping() //function only called when dropping/throwing

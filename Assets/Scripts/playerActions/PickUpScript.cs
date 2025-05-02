@@ -14,6 +14,8 @@ public class PickUpScript : MonoBehaviour
     private bool canDrop = true;
     private int LayerNumber;
 
+    private GameObject originalToolObj; // objeto con rigidbody y colisionador
+
     [System.Serializable]
     public class ToolData
     {
@@ -58,6 +60,8 @@ public class PickUpScript : MonoBehaviour
                                 {
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
+                                    originalToolObj = toolDatabase[i].toolOnView;
+
                                     PickUpObject(toolDatabase[i].toolOnView);
                                     break;
                                 }
@@ -79,15 +83,12 @@ public class PickUpScript : MonoBehaviour
                 }
             }
         }
-        if (heldObj != null) //if player is holding object
+        if (heldObj != null)
         {
-            MoveObject(); //keep object position at holdPos
+            MoveObject();
             RotateObject();
-            Debug.Log("q tienes ahi?");
             if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw, change this if you want another button to be used)
             {
-
-                Debug.Log("Using");
                 StopClipping();
                 ThrowObject();
             }
@@ -98,30 +99,22 @@ public class PickUpScript : MonoBehaviour
     {
         AssignMultipleTags objTags = pickUpObj.GetComponent<AssignMultipleTags>();
 
-        // if (objTags.HasTag("tool"))
-        // {
-        //     Debug.Log("--> " + pickUpObj);
-        //     heldObj = pickUpObj;
-        // }
-         if (pickUpObj.GetComponent<Rigidbody>()) //make sure the object has a RigidBody
+        if (pickUpObj.GetComponent<Rigidbody>()) 
         {
-            Debug.Log("It has");
-            Debug.Log("-->sd " + pickUpObj);
-            heldObj = pickUpObj; //assign heldObj to the object that was hit by the raycast (no longer == null)
-            heldObjRb = pickUpObj.GetComponent<Rigidbody>(); //assign Rigidbody
-            heldObjRb.isKinematic = true;
-            heldObjRb.transform.parent = holdPos.transform; //parent object to holdposition
-            heldObj.layer = LayerNumber; //change the object layer to the holdLayer
-            //make sure object doesnt collide with player, it can cause weird bugs
+            heldObj = pickUpObj; 
+            heldObjRb = pickUpObj.GetComponent<Rigidbody>();             heldObjRb.isKinematic = true;
+            if (objTags.HasTag("tool")) { }
+            else
+            {
+                heldObjRb.transform.parent = holdPos.transform; 
+                heldObj.layer = LayerNumber; 
+            }
+
             Physics.IgnoreCollision(
                 heldObj.GetComponent<Collider>(),
                 player.GetComponent<Collider>(),
                 true
             );
-        }
-        else
-        {
-            //Debug.Log("It doesnt have RGBD");
         }
     }
 
@@ -132,29 +125,36 @@ public class PickUpScript : MonoBehaviour
 
         for (int i = 0; i < toolDatabase.Count; i++)
         {
-            if (toolDatabase[i].toolOnGrab == heldObj)
+            if (toolDatabase[i].toolOnView == heldObj)
             {
                 isTool = true;
                 toolIndex = i;
+                Debug.Log(originalToolObj);
                 break;
             }
         }
 
-        if (isTool)
+        if (isTool && originalToolObj != null)
         {
-            Debug.Log("trying to throw");
-            // For tools, we don't actually drop the toolOnGrab, we just switch back
-            toolDatabase[toolIndex].toolOnGrab.SetActive(false);
-            toolDatabase[toolIndex].toolOnView.SetActive(true);
+            Debug.Log("trolololo");
+            GameObject toolToHide = toolDatabase[toolIndex].toolOnGrab;
 
-            // Reset the tool's position/rotation
-            toolDatabase[toolIndex].toolOnGrab.transform.localPosition = Vector3.zero;
-            toolDatabase[toolIndex].toolOnGrab.transform.localRotation = Quaternion.identity;
+            toolToHide.SetActive(false);
+
+            // Reposicionar y activar el objeto físico original
+            originalToolObj.transform.position = holdPos.position;
+            originalToolObj.transform.rotation = holdPos.rotation;
+            originalToolObj.SetActive(true);
+
+            Rigidbody originalRb = originalToolObj.GetComponent<Rigidbody>();
+            originalRb.isKinematic = false;
 
             heldObj = null;
+            originalToolObj = null;
         }
         else
         {
+            Debug.Log("other trolo");
             Physics.IgnoreCollision(
                 heldObj.GetComponent<Collider>(),
                 player.GetComponent<Collider>(),
@@ -208,36 +208,29 @@ public class PickUpScript : MonoBehaviour
             if (toolDatabase[i].toolOnView == heldObj)
             {
                 isTool = true;
-                Debug.Log("is tool frend");
                 toolIndex = i;
                 break;
             }
-            else
-            {
-                Debug.Log("not tool");
-            }
         }
 
-        if (isTool)
+        if (isTool && originalToolObj != null)
         {
-        //     // For tools, we don't throw the toolOnGrab, we switch back and throw the toolOnView
-        //     toolDatabase[toolIndex].toolOnGrab.SetActive(false);
-        //     GameObject toolToThrow = toolDatabase[toolIndex].toolOnView;
-        //     toolToThrow.SetActive(true);
+            GameObject toolToHide = toolDatabase[toolIndex].toolOnGrab;
 
-        //     // Position the tool where the held version was
-        //     toolToThrow.transform.position = heldObj.transform.position;
-        //     toolToThrow.transform.rotation = heldObj.transform.rotation;
+            toolToHide.SetActive(false);
 
-        //     // Get its rigidbody and throw it
-        //     Rigidbody thrownRb = toolToThrow.GetComponent<Rigidbody>();
-        //     thrownRb.isKinematic = false;
-        //     thrownRb.AddForce(transform.forward * throwForce);
+            // Reposicionar y activar el original
+            originalToolObj.transform.position = holdPos.position;
+            originalToolObj.transform.rotation = holdPos.rotation;
+            originalToolObj.SetActive(true);
 
-        //     // Reset the held version
-        //     heldObj.transform.localPosition = Vector3.zero;
-        //     heldObj.transform.localRotation = Quaternion.identity;
-         }
+            Rigidbody thrownRb = originalToolObj.GetComponent<Rigidbody>();
+            thrownRb.isKinematic = false;
+            thrownRb.AddForce(transform.forward * throwForce);
+
+            heldObj = null;
+            originalToolObj = null; // Limpiar ref
+        }
         else
         {
             Physics.IgnoreCollision(

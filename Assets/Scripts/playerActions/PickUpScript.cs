@@ -129,14 +129,12 @@ public class PickUpScript : MonoBehaviour
             {
                 isTool = true;
                 toolIndex = i;
-                Debug.Log(originalToolObj);
                 break;
             }
         }
 
         if (isTool && originalToolObj != null)
         {
-            Debug.Log("trolololo");
             GameObject toolToHide = toolDatabase[toolIndex].toolOnGrab;
 
             toolToHide.SetActive(false);
@@ -154,7 +152,6 @@ public class PickUpScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("other trolo");
             Physics.IgnoreCollision(
                 heldObj.GetComponent<Collider>(),
                 player.GetComponent<Collider>(),

@@ -25,6 +25,11 @@ public class PickUpScript : MonoBehaviour
 
     public List<ToolData> toolDatabase = new List<ToolData>();
 
+    void usingTool(string tool){
+
+    }
+
+
     void Start()
     {
         LayerNumber = LayerMask.NameToLayer("holdLayer");
@@ -52,6 +57,16 @@ public class PickUpScript : MonoBehaviour
                     {
                         if (objTags.HasTag("tool"))
                         {
+                            if (objTags.HasTag("Knife"))
+                            {
+                                usingTool("knife");
+                            }
+
+                            else if (objTags.HasTag("plate"))
+                            {
+                                usingTool("plate");
+                            }
+                            
                             GameObject currentTool = hit.transform.gameObject;
 
                             for (int i = 0; i < toolDatabase.Count; i++)
@@ -139,7 +154,6 @@ public class PickUpScript : MonoBehaviour
 
             toolToHide.SetActive(false);
 
-            // Reposicionar y activar el objeto físico original
             originalToolObj.transform.position = holdPos.position;
             originalToolObj.transform.rotation = holdPos.rotation;
             originalToolObj.SetActive(true);

@@ -9,6 +9,15 @@ public class TagDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
+
+        if (otherTags == null) return;
+
+        // Primero detectar si es el player
+        if (otherTags.HasTag("Player"))
+        {
+            Debug.Log("hola player");
+        }
+
         if (otherTags != null && otherTags.HasTag(tagToDetect))
         {
             //Debug.Log($"{other.name} entró en la zona. ¡Tiene el tag '{tagToDetect}'!");
@@ -29,6 +38,7 @@ public class TagDetector : MonoBehaviour
                 }
                 other.gameObject.SetActive(false);
             }
+
         }
     }
 }

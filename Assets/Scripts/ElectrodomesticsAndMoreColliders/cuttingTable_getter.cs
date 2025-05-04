@@ -3,17 +3,29 @@ using UnityEngine.InputSystem;
 
 public class TagDetector : MonoBehaviour
 {
-    [SerializeField] private string tagToDetect = "canCut";
-    [SerializeField] private GameObject tomatoToActivate;
-    [SerializeField] private GameObject onionToActivate;
-    [SerializeField] private GameObject tomatoSlicePrefab;
-    
+    [SerializeField]
+    private string tagToDetect = "canCut";
+
+    [SerializeField]
+    private GameObject tomatoToActivate;
+
+    [SerializeField]
+    private GameObject onionToActivate;
+
+    [SerializeField]
+    private GameObject tomatoSlicePrefab;
+
+    [SerializeField]
+    private Vector3 spawnPoint;
+
     public PickUpScript toolUsing;
     private bool knifeUsing = false;
     private bool withFood = false;
+    private string food;
 
     private void Start()
     {
+        spawnPoint = new Vector3(-16.171f, 1.059f, 22.966f);
         if (toolUsing == null)
         {
             toolUsing = FindObjectOfType<PickUpScript>();
@@ -33,7 +45,8 @@ public class TagDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
-        if (otherTags == null) return;
+        if (otherTags == null)
+            return;
 
         if (otherTags.HasTag("Player"))
         {
@@ -46,6 +59,7 @@ public class TagDetector : MonoBehaviour
             {
                 tomatoToActivate.SetActive(true);
                 withFood = true;
+                food = "tomato";
                 other.gameObject.SetActive(false);
             }
             else if (otherTags.HasTag("onion") && onionToActivate != null)
@@ -62,14 +76,29 @@ public class TagDetector : MonoBehaviour
         if (knifeUsing && withFood && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("picado, nan nan nan");
-            // Aquí deberías instanciar el tomatoSlicePrefab
             if (tomatoSlicePrefab != null)
             {
-                Instantiate(tomatoSlicePrefab, transform.position, transform.rotation);
+                if (food == "tomato")
+                {
+                    SpawnTomatoCopy();
+                }
             }
             withFood = false;
-            if (tomatoToActivate != null) tomatoToActivate.SetActive(false);
-            if (onionToActivate != null) onionToActivate.SetActive(false);
+            if (tomatoToActivate != null)
+                tomatoToActivate.SetActive(false);
+            if (onionToActivate != null)
+                onionToActivate.SetActive(false);
+        }
+    }
+
+    void SpawnTomatoCopy()
+    {
+        if (tomatoSlicePrefab != null)
+        {
+            Debug.Log("creadp");
+            Debug.Log("spawnPoint = " + spawnPoint);
+            GameObject newTomato = Instantiate(tomatoSlicePrefab, spawnPoint, Quaternion.identity);
+            newTomato.SetActive(true);
         }
     }
 }

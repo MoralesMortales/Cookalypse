@@ -249,6 +249,8 @@ public class PickUpScript : MonoBehaviour
 
             heldObj = null;
             originalToolObj = null; // Limpiar ref
+            currentToolData = "Aire";
+
         }
         else
         {

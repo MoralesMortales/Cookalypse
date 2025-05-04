@@ -188,6 +188,7 @@ MonoBehaviour:
   tagToDetect: canCut
   tomatoToActivate: {fileID: 1071970180}
   onionToActivate: {fileID: 0}
+  toolUsing: {fileID: 0}
 --- !u!1001 &43712727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1695,11 +1696,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970623982454138578, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
       propertyPath: tags.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7970623982454138578, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
       propertyPath: 'tags.Array.data[1]'
       value: tool
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970623982454138578, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}
+      propertyPath: 'tags.Array.data[2]'
+      value: Knife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7666,14 +7671,10 @@ MonoBehaviour:
   holdPos: {fileID: 634915458}
   throwForce: 500
   pickUpRange: 7.04
-  currentToolData:
-    toolOnView: {fileID: 0}
-    toolOnGrab: {fileID: 0}
-    toolName: 
+  currentToolData: 
   toolDatabase:
   - toolOnView: {fileID: 1351796927}
     toolOnGrab: {fileID: 1299187968}
-    toolName: 
 --- !u!1001 &1908121237
 PrefabInstance:
   m_ObjectHideFlags: 0

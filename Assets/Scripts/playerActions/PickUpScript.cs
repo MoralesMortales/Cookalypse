@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class PickUpScript : MonoBehaviour
     private bool canDrop = true;
     private int LayerNumber;
 
-    private GameObject originalToolObj; // objeto con rigidbody y colisionador
+    private GameObject originalToolObj;
 
     [System.Serializable]
     public class ToolData
@@ -23,12 +24,25 @@ public class PickUpScript : MonoBehaviour
         public GameObject toolOnGrab;
     }
 
+    public String currentToolData;
+
     public List<ToolData> toolDatabase = new List<ToolData>();
 
-    void usingTool(string tool){
-
+    void usingTool(AssignMultipleTags tool)
+    {
+        if (tool.HasTag("Knife"))
+        {
+            currentToolData = "Knife";
+        }
+        else if (tool.HasTag("plate"))
+        {
+            currentToolData = "Plate";
+        }
+        else
+        {
+            currentToolData = "Aire";
+        }
     }
-
 
     void Start()
     {
@@ -57,22 +71,14 @@ public class PickUpScript : MonoBehaviour
                     {
                         if (objTags.HasTag("tool"))
                         {
-                            if (objTags.HasTag("Knife"))
-                            {
-                                usingTool("knife");
-                            }
-
-                            else if (objTags.HasTag("plate"))
-                            {
-                                usingTool("plate");
-                            }
-                            
                             GameObject currentTool = hit.transform.gameObject;
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
+                                    usingTool(objTags);
+
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
                                     originalToolObj = toolDatabase[i].toolOnView;
@@ -93,6 +99,7 @@ public class PickUpScript : MonoBehaviour
             {
                 if (canDrop == true)
                 {
+                    currentToolData = "Aire";
                     StopClipping();
                     DropObject();
                 }
@@ -114,15 +121,16 @@ public class PickUpScript : MonoBehaviour
     {
         AssignMultipleTags objTags = pickUpObj.GetComponent<AssignMultipleTags>();
 
-        if (pickUpObj.GetComponent<Rigidbody>()) 
+        if (pickUpObj.GetComponent<Rigidbody>())
         {
-            heldObj = pickUpObj; 
-            heldObjRb = pickUpObj.GetComponent<Rigidbody>();             heldObjRb.isKinematic = true;
+            heldObj = pickUpObj;
+            heldObjRb = pickUpObj.GetComponent<Rigidbody>();
+            heldObjRb.isKinematic = true;
             if (objTags.HasTag("tool")) { }
             else
             {
-                heldObjRb.transform.parent = holdPos.transform; 
-                heldObj.layer = LayerNumber; 
+                heldObjRb.transform.parent = holdPos.transform;
+                heldObj.layer = LayerNumber;
             }
 
             Physics.IgnoreCollision(
@@ -241,6 +249,8 @@ public class PickUpScript : MonoBehaviour
 
             heldObj = null;
             originalToolObj = null; // Limpiar ref
+            currentToolData = "Aire";
+
         }
         else
         {

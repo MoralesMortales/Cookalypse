@@ -13,6 +13,18 @@ public class TagDetector : MonoBehaviour
 
     public PickUpScript toolUsing;
 
+    private void Start()
+    {
+        if (toolUsing == null)
+        {
+            toolUsing = FindObjectOfType<PickUpScript>(); // Busca automáticamente
+            if (toolUsing == null)
+            {
+                Debug.LogError("No se encontró PickUpScript en la escena.");
+            }
+        }
+    }
+
     void CurrentTool()
     {
         if (toolUsing.currentToolData != null)

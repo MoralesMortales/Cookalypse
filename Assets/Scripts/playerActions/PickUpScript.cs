@@ -24,7 +24,7 @@ public class PickUpScript : MonoBehaviour
         public GameObject toolOnGrab;
     }
 
-    public String currentToolData; 
+    public String currentToolData;
 
     public List<ToolData> toolDatabase = new List<ToolData>();
 
@@ -78,7 +78,7 @@ public class PickUpScript : MonoBehaviour
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
                                     usingTool(objTags);
-                                    
+
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
                                     originalToolObj = toolDatabase[i].toolOnView;
@@ -99,6 +99,7 @@ public class PickUpScript : MonoBehaviour
             {
                 if (canDrop == true)
                 {
+                    currentToolData = "Aire";
                     StopClipping();
                     DropObject();
                 }

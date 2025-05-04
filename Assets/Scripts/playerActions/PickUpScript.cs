@@ -38,6 +38,10 @@ public class PickUpScript : MonoBehaviour
         {
             currentToolData = "Plate";
         }
+        else if (tool.HasTag("fryingPan"))
+        {
+            currentToolData = "fryingPan";
+        }
         else
         {
             currentToolData = "Aire";
@@ -72,6 +76,7 @@ public class PickUpScript : MonoBehaviour
                         if (objTags.HasTag("tool"))
                         {
                             GameObject currentTool = hit.transform.gameObject;
+                            Debug.Log(currentTool);
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
@@ -250,7 +255,6 @@ public class PickUpScript : MonoBehaviour
             heldObj = null;
             originalToolObj = null; // Limpiar ref
             currentToolData = "Aire";
-
         }
         else
         {
@@ -284,6 +288,27 @@ public class PickUpScript : MonoBehaviour
             //change object position to camera position
             heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player
             //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
+        }
+    }
+
+    public GameObject GetHeldObject()
+    {
+        return heldObj;
+    }
+
+    public void ClearHeldObject()
+    {
+        if (heldObj != null)
+        {
+            Physics.IgnoreCollision(
+                heldObj.GetComponent<Collider>(),
+                player.GetComponent<Collider>(),
+                false
+            );
+            heldObj.layer = 0;
+            heldObjRb.isKinematic = false;
+            heldObj = null;
+            currentToolData = "Aire";
         }
     }
 }

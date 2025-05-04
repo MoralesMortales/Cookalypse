@@ -1,0 +1,27 @@
+Auto Installation (With VRCFury):
+
+1) Install VRCFury. https://vrcfury.com/download/
+2) Import the fireextinguisher.unitypackage into your Unity project.
+3) In Nanochip/FireExtinguisher/ folder, drag and drop the FireExtinguisherPrefab prefab onto your Avatar in the Hierarchy. It should be a child of your Avatar's root object.
+4) Position, scale, and rotate the prefab to your Avatar's right hand.
+5) Upload your avatar and VRCFury will handle the rest!
+
+Manual Installation (without VRCFury):
+
+1) Install Avatars 3.0 Manager: https://github.com/VRLabs/Avatars-3.0-Manager/releases/tag/2.0.26
+2) Import the fireextinguisher.unitypackage into your Unity project.
+3) In Nanochip/FireExtinguisher/Manual Installation folder, drag and drop the FireExtinguisherPrefab prefab onto your Avatar in the Hierarchy. It should be a child of your Avatar's root object.
+4) Position, scale, and rotate the prefab so that your Avatar's right hand is holding the fire extinguisher.
+5) Right click the prefab, go to Prefab > Select "Unpack Completely".
+6) Expand the prefab and find the object "DROP ME ONTO RIGHT HAND" and drop this object onto your Right Hand within your Armature. Typically found under Armature/Hips/Spine/Chest/RightShoulder/RightArm/RightElbow/RightWrist.
+7) Toggle off the prefab's object (so that it's off by default when you upload).
+8) At the top of your Unity, open VRLabs > AV3 Manager.
+9) Drag and drop your avatar's game object in the hierarchy to the Avatar box in AV3 Manager.
+10) On the first tab (layers), Expand "FX", select "Add animator to merge".
+11) Drag and drop the FX controller from Nanochip/FireExtinguisher/FX/Fire Extinguisher FX into the Animator box and select "Merge on current".
+12) Select the parameters tab (the three white lines), drag and drop the Params from Nanochip/FireExtinguisher/Resources/Params into the "Parameters to copy" box. Select "Copy parameters".
+13) Select the WD tab, and make sure there's no conflict Write Defaults, if there is, then you'll need to determine if your avatar is Write Defaults On or OFF, if it's ON, then select "Set WD ON", otherwise do "Set WD OFF".
+14) Go to your avatar's expressions menu and create a submenu. Drag and drop the menu from Nanochip/FireExtinguisher/Resources/Menu.
+15) Upload your avatar and you should be good to go!
+
+Need more help? Feel free to message me on Discord: nanochip

@@ -72,11 +72,13 @@ public class PickUpScript : MonoBehaviour
                         if (objTags.HasTag("tool"))
                         {
                             GameObject currentTool = hit.transform.gameObject;
+                            Debug.Log(currentTool);
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
+                                    Debug.Log("exist");
                                     usingTool(objTags);
 
                                     toolDatabase[i].toolOnView.SetActive(false);

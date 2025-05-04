@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,30 +17,31 @@ public class PickUpScript : MonoBehaviour
 
     private GameObject originalToolObj;
 
-    public ToolData currentToolData;
-
     [System.Serializable]
     public class ToolData
     {
         public GameObject toolOnView;
         public GameObject toolOnGrab;
-        public string toolName; // Añade un nombre identificador
     }
+
+    public String currentToolData; 
 
     public List<ToolData> toolDatabase = new List<ToolData>();
 
-    void usingTool(string toolName)
+    void usingTool(AssignMultipleTags tool)
     {
-        foreach (var tool in toolDatabase)
+        if (tool.HasTag("Knife"))
         {
-            if (tool.toolName.ToLower() == toolName.ToLower())
-            {
-                currentToolData = tool;
-                Debug.Log($"Herramienta en uso: {toolName}");
-                return;
-            }
+            currentToolData = "Knife";
         }
-        Debug.LogWarning($"Herramienta no encontrada: {toolName}");
+        else if (tool.HasTag("plate"))
+        {
+            currentToolData = "Plate";
+        }
+        else
+        {
+            currentToolData = "Aire";
+        }
     }
 
     void Start()
@@ -69,22 +71,14 @@ public class PickUpScript : MonoBehaviour
                     {
                         if (objTags.HasTag("tool"))
                         {
-                            if (objTags.HasTag("Knife"))
-                            {
-                                usingTool("knife");
-                            }
-                            else if (objTags.HasTag("plate"))
-                            {
-                                usingTool("plate");
-                            }
-
                             GameObject currentTool = hit.transform.gameObject;
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
-                                    currentToolData = toolDatabase[i];
+                                    usingTool(objTags);
+                                    
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
                                     originalToolObj = toolDatabase[i].toolOnView;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TagDetector : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class TagDetector : MonoBehaviour
     private GameObject onionToActivate;
 
     public PickUpScript toolUsing;
+
+    [SerializeField]
+    private GameObject tomatoSlicePrefab;
+
+    private bool knifeUsing = false;
+    private bool withFood = false;
 
     private void Start()
     {
@@ -33,14 +40,13 @@ public class TagDetector : MonoBehaviour
             Debug.Log($"Usando herramienta: {toolUsing.currentToolData}");
             if (toolUsing.currentToolData == "Knife")
             {
-                Debug.Log("Nice knife");
+                knifeUsing = true;
+            }
+            else
+            {
+                knifeUsing = false;
             }
         }
-    }
-
-    void cuttingTomatoes(){
-        loader 2s
-        create tomatoSlice on x=2 y=4 z=5 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,14 +65,13 @@ public class TagDetector : MonoBehaviour
 
         if (otherTags != null && otherTags.HasTag(tagToDetect))
         {
-            //Debug.Log($"{other.name} entró en la zona. ¡Tiene el tag '{tagToDetect}'!");
-
             if (otherTags.HasTag("tomato"))
             {
                 if (tomatoToActivate != null)
                 {
-                    Debug.Log("es tomato");
+                    Debug.Log("Tomato para picar");
                     tomatoToActivate.SetActive(true);
+                    withFood = true;
                 }
                 other.gameObject.SetActive(false);
             }
@@ -75,9 +80,26 @@ public class TagDetector : MonoBehaviour
                 if (onionToActivate != null)
                 {
                     onionToActivate.SetActive(true);
+                    withFood = true;
                 }
                 other.gameObject.SetActive(false);
             }
+        }
+
+        if (knifeUsing && withFood && (Input.GetKeyDown(KeyCode.F)))
+        {
+            Debug.Log("picado, nan nan nan");
+        }
+        else
+        {
+            Debug.Log(
+                "tool "
+                    + knifeUsing
+                    + " with food"
+                    + withFood
+                    + "Key "
+                    + (Input.GetKeyDown(KeyCode.F))
+            );
         }
     }
 }

@@ -17,7 +17,8 @@ public class TagDetector : MonoBehaviour
     {
         if (toolUsing == null)
         {
-            toolUsing = FindObjectOfType<PickUpScript>(); // Busca automáticamente
+            toolUsing = FindObjectOfType<PickUpScript>();
+
             if (toolUsing == null)
             {
                 Debug.LogError("No se encontró PickUpScript en la escena.");
@@ -30,7 +31,16 @@ public class TagDetector : MonoBehaviour
         if (toolUsing.currentToolData != null)
         {
             Debug.Log($"Usando herramienta: {toolUsing.currentToolData}");
+            if (toolUsing.currentToolData == "Knife")
+            {
+                Debug.Log("Nice knife");
+            }
         }
+    }
+
+    void cuttingTomatoes(){
+        loader 2s
+        create tomatoSlice on x=2 y=4 z=5 
     }
 
     private void OnTriggerEnter(Collider other)

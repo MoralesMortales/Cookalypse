@@ -12,7 +12,6 @@ public class TagDetector : MonoBehaviour
 
         if (otherTags == null) return;
 
-        // Primero detectar si es el player
         if (otherTags.HasTag("Player"))
         {
             Debug.Log("hola player");

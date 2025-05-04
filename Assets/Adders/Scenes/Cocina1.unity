@@ -2150,6 +2150,7 @@ GameObject:
   - component: {fileID: 484267118}
   - component: {fileID: 484267117}
   - component: {fileID: 484267120}
+  - component: {fileID: 484267121}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -2262,6 +2263,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 14.48
   orientation: {fileID: 0}
+--- !u!114 &484267121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484267115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7e4dd3768974744be551316fd19d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - Player
 --- !u!1 &497506559
 GameObject:
   m_ObjectHideFlags: 0
@@ -7651,9 +7666,14 @@ MonoBehaviour:
   holdPos: {fileID: 634915458}
   throwForce: 500
   pickUpRange: 7.04
+  currentToolData:
+    toolOnView: {fileID: 0}
+    toolOnGrab: {fileID: 0}
+    toolName: 
   toolDatabase:
   - toolOnView: {fileID: 1351796927}
     toolOnGrab: {fileID: 1299187968}
+    toolName: 
 --- !u!1001 &1908121237
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,21 +14,33 @@ public class PickUpScript : MonoBehaviour
     private bool canDrop = true;
     private int LayerNumber;
 
-    private GameObject originalToolObj; // objeto con rigidbody y colisionador
+    private GameObject originalToolObj;
+
+    public ToolData currentToolData;
 
     [System.Serializable]
     public class ToolData
     {
         public GameObject toolOnView;
         public GameObject toolOnGrab;
+        public string toolName; // Añade un nombre identificador
     }
 
     public List<ToolData> toolDatabase = new List<ToolData>();
 
-    void usingTool(string tool){
-
+    void usingTool(string toolName)
+    {
+        foreach (var tool in toolDatabase)
+        {
+            if (tool.toolName.ToLower() == toolName.ToLower())
+            {
+                currentToolData = tool;
+                Debug.Log($"Herramienta en uso: {toolName}");
+                return;
+            }
+        }
+        Debug.LogWarning($"Herramienta no encontrada: {toolName}");
     }
-
 
     void Start()
     {
@@ -61,18 +73,18 @@ public class PickUpScript : MonoBehaviour
                             {
                                 usingTool("knife");
                             }
-
                             else if (objTags.HasTag("plate"))
                             {
                                 usingTool("plate");
                             }
-                            
+
                             GameObject currentTool = hit.transform.gameObject;
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
                                 if (toolDatabase[i].toolOnView == currentTool)
                                 {
+                                    currentToolData = toolDatabase[i];
                                     toolDatabase[i].toolOnView.SetActive(false);
                                     toolDatabase[i].toolOnGrab.SetActive(true);
                                     originalToolObj = toolDatabase[i].toolOnView;
@@ -114,15 +126,16 @@ public class PickUpScript : MonoBehaviour
     {
         AssignMultipleTags objTags = pickUpObj.GetComponent<AssignMultipleTags>();
 
-        if (pickUpObj.GetComponent<Rigidbody>()) 
+        if (pickUpObj.GetComponent<Rigidbody>())
         {
-            heldObj = pickUpObj; 
-            heldObjRb = pickUpObj.GetComponent<Rigidbody>();             heldObjRb.isKinematic = true;
+            heldObj = pickUpObj;
+            heldObjRb = pickUpObj.GetComponent<Rigidbody>();
+            heldObjRb.isKinematic = true;
             if (objTags.HasTag("tool")) { }
             else
             {
-                heldObjRb.transform.parent = holdPos.transform; 
-                heldObj.layer = LayerNumber; 
+                heldObjRb.transform.parent = holdPos.transform;
+                heldObj.layer = LayerNumber;
             }
 
             Physics.IgnoreCollision(

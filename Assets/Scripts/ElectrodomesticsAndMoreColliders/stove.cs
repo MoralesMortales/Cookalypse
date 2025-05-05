@@ -47,6 +47,7 @@ public class stove : MonoBehaviour
 
         if (otherTags.HasTag("Player"))
         {
+            Debug.Log("hola player");
             CurrentTool();
         }
 

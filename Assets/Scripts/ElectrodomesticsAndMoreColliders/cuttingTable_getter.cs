@@ -90,6 +90,10 @@ public class TagDetector : MonoBehaviour
             if (onionToActivate != null)
                 onionToActivate.SetActive(false);
         }
+        else
+        {
+            Debug.Log("No");
+        }
     }
 
     void SpawnTomatoCopy()

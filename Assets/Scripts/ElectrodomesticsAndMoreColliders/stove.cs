@@ -22,7 +22,7 @@ public class stove : MonoBehaviour
 
     void Start()
     {
-        spawnPoint = new Vector3(-14.15f, 0.95f, 6.7f);
+        spawnPoint = new Vector3(-14.19f, 0.95f, 5.29f);
         if (toolUsing == null)
         {
             toolUsing = FindObjectOfType<PickUpScript>();
@@ -65,9 +65,11 @@ public class stove : MonoBehaviour
             {
                 // Quita el objeto de la mano
                 heldObject.transform.parent = null;
+                heldObject.SetActive(true);
 
                 // Lo mueve a la posición deseada
                 heldObject.transform.position = spawnPoint;
+                
                 heldObject.transform.rotation = Quaternion.identity; // o como prefieras
 
                 // Reactiva física si era necesario

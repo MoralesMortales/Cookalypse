@@ -22,7 +22,7 @@ public class stove : MonoBehaviour
 
     void Start()
     {
-        spawnPoint = new Vector3(0.28f, 0.01f, 0.41f);
+        spawnPoint = new Vector3(-14.15f, 0.95f, 6.7f);
         if (toolUsing == null)
         {
             toolUsing = FindObjectOfType<PickUpScript>();

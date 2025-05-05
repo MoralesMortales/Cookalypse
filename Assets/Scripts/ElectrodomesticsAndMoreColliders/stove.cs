@@ -43,17 +43,44 @@ public class stove : MonoBehaviour
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
         if (otherTags == null)
+        {
             return;
+        }
 
         if (otherTags.HasTag("Player"))
         {
-            Debug.Log("hola player");
             CurrentTool();
         }
+    }
 
-        if (fryingPanUsing)
+    private void Update()
+    {
+        if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("usando");
+
+            // Encuentra el objeto sartén que se está usando actualmente
+            GameObject heldObject = toolUsing.GetHeldObject();
+            if (heldObject != null)
+            {
+                // Quita el objeto de la mano
+                heldObject.transform.parent = null;
+
+                // Lo mueve a la posición deseada
+                heldObject.transform.position = spawnPoint;
+                heldObject.transform.rotation = Quaternion.identity; // o como prefieras
+
+                // Reactiva física si era necesario
+                Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                    rb.isKinematic = false;
+
+                // Limpia el estado del pickup
+                toolUsing.ClearHeldObject();
+
+                // Ya no está usando sartén
+                fryingPanUsing = false;
+            }
         }
     }
 }

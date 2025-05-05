@@ -38,6 +38,10 @@ public class PickUpScript : MonoBehaviour
         {
             currentToolData = "Plate";
         }
+        else if (tool.HasTag("fryingPan"))
+        {
+            currentToolData = "fryingPan";
+        }
         else
         {
             currentToolData = "Aire";

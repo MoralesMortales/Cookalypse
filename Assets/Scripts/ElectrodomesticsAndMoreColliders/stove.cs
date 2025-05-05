@@ -2,13 +2,57 @@ using UnityEngine;
 
 public class stove : MonoBehaviour
 {
+    [SerializeField]
+    private string tagToDetect = "canFry";
+
+    [SerializeField]
+    private GameObject wellFryedMeat;
+
+    [SerializeField]
+    private GameObject overFryedMeat;
+
+    [SerializeField]
+    private Vector3 spawnPoint;
+
+    public PickUpScript toolUsing;
+
+    private bool fryingPanUsing = false;
+    private bool withFood = false;
+    private string food;
+
     void Start()
     {
-        
+        spawnPoint = new Vector3(-16.171f, 1.059f, 22.966f);
+        if (toolUsing == null)
+        {
+            toolUsing = FindObjectOfType<PickUpScript>();
+            if (toolUsing == null)
+                Debug.LogError("No se encontró PickUpScript en la escena.");
+        }
     }
 
-    void Update()
+    void CurrentTool()
     {
-        
+        if (toolUsing.currentToolData != null)
+        {
+            fryingPanUsing = (toolUsing.currentToolData == "fryingPan");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
+        if (otherTags == null)
+            return;
+
+        if (otherTags.HasTag("Player"))
+        {
+            CurrentTool();
+        }
+
+        if (fryingPanUsing)
+        {
+            Debug.Log("usando");
+        }
     }
 }

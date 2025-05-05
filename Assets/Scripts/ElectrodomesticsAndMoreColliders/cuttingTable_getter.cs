@@ -19,6 +19,7 @@ public class TagDetector : MonoBehaviour
     private Vector3 spawnPoint;
 
     public PickUpScript toolUsing;
+
     private bool knifeUsing = false;
     private bool withFood = false;
     private string food;

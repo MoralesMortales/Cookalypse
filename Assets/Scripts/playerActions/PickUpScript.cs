@@ -204,8 +204,6 @@ public class PickUpScript : MonoBehaviour
             canDrop = false;
 
             //disable player being able to look around
-            //mouseLookScript.verticalSensitivity = 0f;
-            //mouseLookScript.lateralSensitivity = 0f;
 
             float XaxisRotation = Input.GetAxis("Mouse X") * rotationSensitivity;
             float YaxisRotation = Input.GetAxis("Mouse Y") * rotationSensitivity;
@@ -215,9 +213,7 @@ public class PickUpScript : MonoBehaviour
         }
         else
         {
-            //re-enable player being able to look around
-            //mouseLookScript.verticalSensitivity = originalvalue;
-            //mouseLookScript.lateralSensitivity = originalvalue;
+
             canDrop = true;
         }
     }

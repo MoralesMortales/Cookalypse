@@ -17,8 +17,11 @@ public class stove : MonoBehaviour
     public PickUpScript toolUsing;
 
     private bool fryingPanUsing = false;
-    private bool withFood = false;
-    private string food;
+    //private bool withFood = false;
+    //private string food;
+
+    private bool usingTool;
+
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class stove : MonoBehaviour
     {
         if (toolUsing.currentToolData != null)
         {
-            fryingPanUsing = (toolUsing.currentToolData == "fryingPan");
+            fryingPanUsing = toolUsing.currentToolData == "fryingPan";
         }
     }
 
@@ -44,6 +47,7 @@ public class stove : MonoBehaviour
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
         if (otherTags == null)
         {
+            Debug.Log("ERRRRROR");
             return;
         }
 
@@ -57,7 +61,9 @@ public class stove : MonoBehaviour
     {
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("usando");
+            Debug.Log("Usando Frying Pan");
+
+            usingTool = true;
 
             GameObject heldObject = toolUsing.GetHeldObject();
             if (heldObject != null)

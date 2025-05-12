@@ -17,8 +17,10 @@ public class stove : MonoBehaviour
     public PickUpScript toolUsing;
 
     private bool fryingPanUsing = false;
-    private bool withFood = false;
-    private string food;
+    public bool fryingPanOnStove;
+
+    //private bool withFood = false;
+    //private string food;
 
     void Start()
     {
@@ -29,13 +31,14 @@ public class stove : MonoBehaviour
             if (toolUsing == null)
                 Debug.LogError("No se encontró PickUpScript en la escena.");
         }
+        fryingPanOnStove = false;
     }
 
     void CurrentTool()
     {
         if (toolUsing.currentToolData != null)
         {
-            fryingPanUsing = (toolUsing.currentToolData == "fryingPan");
+            fryingPanUsing = toolUsing.currentToolData == "fryingPan";
         }
     }
 
@@ -44,6 +47,7 @@ public class stove : MonoBehaviour
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
         if (otherTags == null)
         {
+            Debug.Log("ERRRRROR");
             return;
         }
 
@@ -55,13 +59,18 @@ public class stove : MonoBehaviour
 
     private void Update()
     {
+
+        if (fryingPanOnStove)
+        {
+            Debug.Log("TRUE");
+        }
+
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("usando");
-
             GameObject heldObject = toolUsing.GetHeldObject();
             if (heldObject != null)
             {
+                fryingPanOnStove = true;
                 heldObject.transform.parent = null;
                 heldObject.SetActive(true);
                 heldObject.transform.position = spawnPoint;

@@ -65,6 +65,7 @@ public class stove : MonoBehaviour
             GameObject heldObject = toolUsing.GetHeldObject();
             if (heldObject != null)
             {
+                Debug.Log("changing to true");
                 fryingPanOnStove = true;
 
                 heldObject.transform.parent = null;

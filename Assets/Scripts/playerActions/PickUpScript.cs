@@ -42,11 +42,12 @@ public class PickUpScript : MonoBehaviour
         }
         else if (tool.HasTag("fryingPan"))
         {
-            currentToolData = "fryingPan";
             if (fryingPanUsing.fryingPanOnStove == true)
             {
+                Debug.Log("changing to false");
                 fryingPanUsing.fryingPanOnStove = false;
             }
+            currentToolData = "fryingPan";
         }
         else
         {
@@ -82,7 +83,7 @@ public class PickUpScript : MonoBehaviour
                         if (objTags.HasTag("tool"))
                         {
                             GameObject currentTool = hit.transform.gameObject;
-                            Debug.Log(currentTool);
+                            //Debug.Log(currentTool);
 
                             for (int i = 0; i < toolDatabase.Count; i++)
                             {
@@ -219,7 +220,6 @@ public class PickUpScript : MonoBehaviour
         }
         else
         {
-
             canDrop = true;
         }
     }

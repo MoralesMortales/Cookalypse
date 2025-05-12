@@ -17,6 +17,8 @@ public class PickUpScript : MonoBehaviour
 
     private GameObject originalToolObj;
 
+    public stove fryingPanUsing;
+
     [System.Serializable]
     public class ToolData
     {
@@ -41,6 +43,10 @@ public class PickUpScript : MonoBehaviour
         else if (tool.HasTag("fryingPan"))
         {
             currentToolData = "fryingPan";
+            if (fryingPanUsing.fryingPanOnStove == true)
+            {
+                fryingPanUsing.fryingPanOnStove = false;
+            }
         }
         else
         {

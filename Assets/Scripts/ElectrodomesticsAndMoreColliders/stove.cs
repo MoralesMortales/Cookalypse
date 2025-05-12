@@ -17,11 +17,10 @@ public class stove : MonoBehaviour
     public PickUpScript toolUsing;
 
     private bool fryingPanUsing = false;
+    public bool fryingPanOnStove = false;
+
     //private bool withFood = false;
     //private string food;
-
-    private bool usingTool;
-
 
     void Start()
     {
@@ -59,15 +58,15 @@ public class stove : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Using? " + fryingPanOnStove);
+
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Usando Frying Pan");
-
-            usingTool = true;
-
             GameObject heldObject = toolUsing.GetHeldObject();
             if (heldObject != null)
             {
+                fryingPanOnStove = true;
+
                 heldObject.transform.parent = null;
                 heldObject.SetActive(true);
                 heldObject.transform.position = spawnPoint;

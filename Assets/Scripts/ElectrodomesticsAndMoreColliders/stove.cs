@@ -31,7 +31,7 @@ public class stove : MonoBehaviour
             if (toolUsing == null)
                 Debug.LogError("No se encontró PickUpScript en la escena.");
         }
-        fryingPanOnStove = true;
+        fryingPanOnStove = false;
     }
 
     void CurrentTool()
@@ -60,11 +60,11 @@ public class stove : MonoBehaviour
     private void Update()
     {
 
-        if (fryingPanOnStove == false)
+        if (fryingPanOnStove)
         {
-            Debug.Log("falsee");
-            //Debug.Break();
+            Debug.Log("TRUE");
         }
+
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {
             GameObject heldObject = toolUsing.GetHeldObject();

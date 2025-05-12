@@ -45,7 +45,7 @@ public class PickUpScript : MonoBehaviour
             if (fryingPanUsing.fryingPanOnStove)
             {
                 Debug.Log("used");
-                //fryingPanUsing.fryingPanOnStove = false;
+                fryingPanUsing.fryingPanOnStove = false;
             }
             currentToolData = "fryingPan";
         }

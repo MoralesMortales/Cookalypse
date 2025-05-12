@@ -42,10 +42,10 @@ public class PickUpScript : MonoBehaviour
         }
         else if (tool.HasTag("fryingPan"))
         {
-            if (fryingPanUsing.fryingPanOnStove == true)
+            if (fryingPanUsing.fryingPanOnStove)
             {
-                Debug.Log("changing to false");
-                fryingPanUsing.fryingPanOnStove = false;
+                Debug.Log("used");
+                //fryingPanUsing.fryingPanOnStove = false;
             }
             currentToolData = "fryingPan";
         }

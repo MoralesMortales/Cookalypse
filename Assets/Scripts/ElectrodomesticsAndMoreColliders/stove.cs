@@ -60,7 +60,7 @@ public class stove : MonoBehaviour
     private void Update()
     {
 
-        if (fryingPanOnStove)
+        if (fryingPanOnStove && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("TRUE");
         }

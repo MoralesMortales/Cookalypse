@@ -13,10 +13,12 @@ public class stove : MonoBehaviour
 
     [SerializeField]
     private Vector3 spawnPoint;
+    private bool inFrontOfStove;
 
     public PickUpScript toolUsing;
 
     private bool fryingPanUsing = false;
+
     public bool fryingPanOnStove;
 
     //private bool withFood = false;
@@ -53,16 +55,21 @@ public class stove : MonoBehaviour
 
         if (otherTags.HasTag("Player"))
         {
+            inFrontOfStove = true;
             CurrentTool();
+        }
+
+        else
+        {
+            inFrontOfStove = false;
         }
     }
 
     private void Update()
     {
-
-        if (fryingPanOnStove)
+        if (fryingPanOnStove && Input.GetKeyDown(KeyCode.F) && inFrontOfStove)
         {
-            Debug.Log("TRUE");
+            Debug.Log("TRUE IS");
         }
 
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))

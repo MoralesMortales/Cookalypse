@@ -192,6 +192,7 @@ MonoBehaviour:
   tags:
   - canPickUp
   - egg
+  - food
 --- !u!1 &28991535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagToDetect: canFry
   wellFryedMeat: {fileID: 1955610925}
+  friedEgg: {fileID: 1350886597}
   overFryedMeat: {fileID: 781009655}
   spawnPoint: {x: 0, y: 0, z: 0}
   toolUsing: {fileID: 0}
@@ -7233,6 +7235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagToDetect: canFry
   wellFryedMeat: {fileID: 1955610925}
+  friedEgg: {fileID: 0}
   overFryedMeat: {fileID: 0}
   spawnPoint: {x: 0, y: 0, z: 0}
   toolUsing: {fileID: 0}
@@ -7852,6 +7855,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1868026665}
   m_SourcePrefab: {fileID: 100100000, guid: 607100571150c6747b23ce817234be64, type: 3}
+--- !u!1 &1350886597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 847a19cba01e0634ab71b8537cc4117e, type: 3}
+  m_PrefabInstance: {fileID: 1790115473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1351796927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8882185340641314103, guid: 7edf1671c2ce5c74ea69fe1a60e5895c, type: 3}

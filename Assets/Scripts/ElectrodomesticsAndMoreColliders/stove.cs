@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class stove : MonoBehaviour
 {
-    [SerializeField]
-    private string tagToDetect = "canFry";
+    // [SerializeField]
+    // private string tagToDetect = "canFry";
 
     [SerializeField]
     private GameObject wellFryedMeat;
+
+
+    [SerializeField]
+    private GameObject eggFried;
 
     [SerializeField]
     private GameObject overFryedMeat;
@@ -22,7 +26,7 @@ public class stove : MonoBehaviour
     public bool fryingPanOnStove;
 
     //private bool withFood = false;
-    //private string food;
+    private string food;
 
     void Start()
     {
@@ -52,26 +56,54 @@ public class stove : MonoBehaviour
             Debug.Log("ERRRRROR");
             return;
         }
-
+        if (otherTags.HasTag("food"))
+        {
+            Debug.Log("U have food");
+            witchFood(otherTags);
+        }
         if (otherTags.HasTag("Player"))
         {
             inFrontOfStove = true;
             CurrentTool();
+
         }
 
     }
     private void OnTriggerExit(Collider other)
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
-        if (otherTags != null && otherTags.HasTag("Player"))
+
+        if (otherTags.HasTag("Player"))
         {
             inFrontOfStove = false;
         }
+    }
+
+    void witchFood(AssignMultipleTags foodObject)
+    {
+        if (foodObject.HasTag("egg"))
+        {
+            food = "egg";
+        }
+        else if (foodObject.HasTag("meat"))
+        {
+            food = "meat";
+        }
+        else
+        {
+            food = "air";
+        }
+
     }
     private void Update()
     {
         if (fryingPanOnStove && Input.GetKeyDown(KeyCode.F) && inFrontOfStove)
         {
+            if (food == "egg")
+            {
+                eggFried.SetActive(true);
+                eggFried.transform.position = spawnPoint;
+            }
             Debug.Log("TRUE IS");
         }
         else

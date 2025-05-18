@@ -59,17 +59,24 @@ public class stove : MonoBehaviour
             CurrentTool();
         }
 
-        else
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
+        if (otherTags != null && otherTags.HasTag("Player"))
         {
             inFrontOfStove = false;
         }
     }
-
     private void Update()
     {
         if (fryingPanOnStove && Input.GetKeyDown(KeyCode.F) && inFrontOfStove)
         {
             Debug.Log("TRUE IS");
+        }
+        else
+        {
+            Debug.Log("Nonono");
         }
 
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))

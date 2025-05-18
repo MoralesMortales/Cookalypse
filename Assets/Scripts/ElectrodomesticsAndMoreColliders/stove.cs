@@ -72,7 +72,11 @@ public class stove : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
-
+        if (otherTags == null)
+        {
+            Debug.Log("No AssignMultipleTags component found on exiting object");
+            return;
+        }
         if (otherTags.HasTag("Player"))
         {
             inFrontOfStove = false;
@@ -108,7 +112,7 @@ public class stove : MonoBehaviour
         }
         else
         {
-            Debug.Log("Nonono");
+            Debug.Log("-->" + fryingPanOnStove + " " + inFrontOfStove);
         }
 
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))

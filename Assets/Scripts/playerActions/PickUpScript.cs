@@ -9,7 +9,9 @@ public class PickUpScript : MonoBehaviour
 
     public float throwForce = 500f;
     public float pickUpRange = 7f;
+
     private float rotationSensitivity = 50f;
+
     private GameObject heldObj;
     private Rigidbody heldObjRb;
     private bool canDrop = true;
@@ -18,6 +20,7 @@ public class PickUpScript : MonoBehaviour
     private GameObject originalToolObj;
 
     public stove fryingPanUsing;
+    public dish dishCode;
 
     [System.Serializable]
     public class ToolData
@@ -64,8 +67,9 @@ public class PickUpScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (heldObj == null)
+            if (heldObj == null || currentToolData == "Plate")
             {
+                Debug.Log("using");
                 RaycastHit hit;
                 if (
                     Physics.Raycast(
@@ -99,6 +103,15 @@ public class PickUpScript : MonoBehaviour
                                     break;
                                 }
                             }
+                        }
+                        else if (objTags.HasTag("ingredientPlus"))
+                        {
+                            Debug.Log("its important");
+                            dishCode = FindObjectOfType<dish>();
+
+                            dishCode.addIngredientPlusToDish(hit.transform.gameObject);
+
+                            //PickUpObject(hit.transform.gameObject);
                         }
                         else
                         {

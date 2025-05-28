@@ -21,8 +21,21 @@ public class dish : MonoBehaviour
             if (toolUsing.currentToolData == "Plate")
             {
                 Debug.Log("true");
-
             }
+        }
+    }
+
+    public void addIngredientPlusToDish(GameObject ingredientPlus)
+    {
+        Debug.Log("holas, tienes ", ingredientPlus);
+        AssignMultipleTags objTags = ingredientPlus.GetComponent<AssignMultipleTags>();
+        if (objTags.HasTag("friedEgg"))
+        {
+            Debug.Log("mostrar fried egg");
+        }
+        else if (objTags.HasTag("tomatoSlice"))
+        {
+            Debug.Log("mostrar tomatoSlice");
         }
     }
 }

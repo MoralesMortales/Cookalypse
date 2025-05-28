@@ -20,6 +20,7 @@ public class PickUpScript : MonoBehaviour
     private GameObject originalToolObj;
 
     public stove fryingPanUsing;
+    public dish dishCode;
 
     [System.Serializable]
     public class ToolData
@@ -105,8 +106,11 @@ public class PickUpScript : MonoBehaviour
                         else if (objTags.HasTag("ingredientPlus"))
                         {
                             Debug.Log("its important");
-                            PickUpObject(hit.transform.gameObject);
-                            
+                            dishCode = FindObjectOfType<dish>();
+
+                            dishCode.addIngredientPlusToDish(hit.transform.gameObject);
+
+                            //PickUpObject(hit.transform.gameObject);
                         }
                         else
                         {

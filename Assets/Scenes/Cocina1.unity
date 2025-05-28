@@ -7904,6 +7904,7 @@ MonoBehaviour:
   tags:
   - canPickUp
   - ingredientPlus
+  - tomatoSlice
 --- !u!1 &993899917
 GameObject:
   m_ObjectHideFlags: 0
@@ -11889,6 +11890,7 @@ MonoBehaviour:
   tags:
   - canPickUp
   - ingredientPlus
+  - friedEgg
 --- !u!54 &1790115476
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12671,6 +12673,7 @@ MonoBehaviour:
   throwForce: 500
   pickUpRange: 7.04
   fryingPanUsing: {fileID: 396918328}
+  dishCode: {fileID: 0}
   currentToolData: 
   toolDatabase:
   - toolOnView: {fileID: 1351796927}

@@ -24,7 +24,7 @@ public class cardMenu : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             if (shown == false)
             {

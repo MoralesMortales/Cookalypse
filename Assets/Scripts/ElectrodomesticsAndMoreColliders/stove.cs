@@ -8,7 +8,6 @@ public class stove : MonoBehaviour
     [SerializeField]
     private GameObject wellFryedMeat;
 
-
     [SerializeField]
     private GameObject eggFried;
 
@@ -25,8 +24,12 @@ public class stove : MonoBehaviour
 
     public bool fryingPanOnStove;
 
+    private AssignMultipleTags otherTags;
+
     //private bool withFood = false;
+
     private string food;
+    private Collider otherObjectFood;
 
     void Start()
     {
@@ -50,7 +53,7 @@ public class stove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
+        otherTags = other.GetComponent<AssignMultipleTags>();
         if (otherTags == null)
         {
             Debug.Log("ERRRRROR");
@@ -60,15 +63,15 @@ public class stove : MonoBehaviour
         {
             Debug.Log("U have food");
             witchFood(otherTags);
+            otherObjectFood = other;
         }
         if (otherTags.HasTag("Player"))
         {
             inFrontOfStove = true;
             CurrentTool();
-
         }
-
     }
+
     private void OnTriggerExit(Collider other)
     {
         AssignMultipleTags otherTags = other.GetComponent<AssignMultipleTags>();
@@ -97,8 +100,8 @@ public class stove : MonoBehaviour
         {
             food = "air";
         }
-
     }
+
     private void Update()
     {
         if (fryingPanOnStove && Input.GetKeyDown(KeyCode.F) && inFrontOfStove)
@@ -106,6 +109,7 @@ public class stove : MonoBehaviour
             if (food == "egg")
             {
                 eggFried.SetActive(true);
+                otherObjectFood.gameObject.SetActive(false);
                 eggFried.transform.position = spawnPoint;
             }
             Debug.Log("TRUE IS");

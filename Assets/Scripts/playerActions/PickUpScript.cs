@@ -67,8 +67,9 @@ public class PickUpScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (heldObj == null)
+            if (heldObj == null || currentToolData == "Plate")
             {
+                Debug.Log("using");
                 RaycastHit hit;
                 if (
                     Physics.Raycast(

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class dish : MonoBehaviour
 {
+private bool dishActive;
     public PickUpScript toolUsing;
 
     void Start()
@@ -21,6 +22,11 @@ public class dish : MonoBehaviour
             if (toolUsing.currentToolData == "Plate")
             {
                 Debug.Log("true");
+                dishActive = true;
+            }
+            else
+            {
+                dishActive = false;
             }
         }
     }
@@ -29,11 +35,11 @@ public class dish : MonoBehaviour
     {
         Debug.Log("holas, tienes ", ingredientPlus);
         AssignMultipleTags objTags = ingredientPlus.GetComponent<AssignMultipleTags>();
-        if (objTags.HasTag("friedEgg"))
+        if (objTags.HasTag("friedEgg")  && dishActive)
         {
             Debug.Log("mostrar fried egg");
         }
-        else if (objTags.HasTag("tomatoSlice"))
+        else if (objTags.HasTag("tomatoSlice") && dishActive)
         {
             Debug.Log("mostrar tomatoSlice");
         }

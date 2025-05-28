@@ -9,7 +9,9 @@ public class PickUpScript : MonoBehaviour
 
     public float throwForce = 500f;
     public float pickUpRange = 7f;
+
     private float rotationSensitivity = 50f;
+
     private GameObject heldObj;
     private Rigidbody heldObjRb;
     private bool canDrop = true;
@@ -99,6 +101,12 @@ public class PickUpScript : MonoBehaviour
                                     break;
                                 }
                             }
+                        }
+                        else if (objTags.HasTag("ingredientPlus"))
+                        {
+                            Debug.Log("its important");
+                            PickUpObject(hit.transform.gameObject);
+                            
                         }
                         else
                         {

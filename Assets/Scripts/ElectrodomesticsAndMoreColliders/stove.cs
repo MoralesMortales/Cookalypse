@@ -56,12 +56,10 @@ public class stove : MonoBehaviour
         otherTags = other.GetComponent<AssignMultipleTags>();
         if (otherTags == null)
         {
-            Debug.Log("ERRRRROR");
             return;
         }
         if (otherTags.HasTag("food"))
         {
-            Debug.Log("U have food");
             witchFood(otherTags);
             otherObjectFood = other;
         }
@@ -112,12 +110,8 @@ public class stove : MonoBehaviour
                 otherObjectFood.gameObject.SetActive(false);
                 eggFried.transform.position = spawnPoint;
             }
-            Debug.Log("TRUE IS");
         }
-        else
-        {
-            Debug.Log("-->" + fryingPanOnStove + " " + inFrontOfStove);
-        }
+        else { }
 
         if (fryingPanUsing && Input.GetKeyDown(KeyCode.F))
         {

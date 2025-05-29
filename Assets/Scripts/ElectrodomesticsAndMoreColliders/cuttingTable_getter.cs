@@ -10,10 +10,13 @@ public class TagDetector : MonoBehaviour
     private GameObject tomatoToActivate;
 
     [SerializeField]
-    private GameObject onionToActivate;
+    private GameObject tomatoSlicePrefab;
 
     [SerializeField]
-    private GameObject tomatoSlicePrefab;
+    private GameObject lettuceToActivate;
+
+    [SerializeField]
+    private GameObject lettuceSlicePrefab;
 
     [SerializeField]
     private Vector3 spawnPoint;
@@ -63,10 +66,11 @@ public class TagDetector : MonoBehaviour
                 food = "tomato";
                 other.gameObject.SetActive(false);
             }
-            else if (otherTags.HasTag("onion") && onionToActivate != null)
+            else if (otherTags.HasTag("lettuce") && lettuceToActivate != null)
             {
-                onionToActivate.SetActive(true);
+                lettuceToActivate.SetActive(true);
                 withFood = true;
+                food = "lettuce";
                 other.gameObject.SetActive(false);
             }
         }
@@ -83,12 +87,16 @@ public class TagDetector : MonoBehaviour
                 {
                     SpawnTomatoCopy();
                 }
+                if (food == "lettuce")
+                {
+                    SpawnLettuceCopy();
+                }
             }
             withFood = false;
             if (tomatoToActivate != null)
                 tomatoToActivate.SetActive(false);
-            if (onionToActivate != null)
-                onionToActivate.SetActive(false);
+            if (lettuceToActivate != null)
+                lettuceToActivate.SetActive(false);
         }
 
     }
@@ -100,6 +108,16 @@ public class TagDetector : MonoBehaviour
             Debug.Log("creadp");
             Debug.Log("spawnPoint = " + spawnPoint);
             GameObject newTomato = Instantiate(tomatoSlicePrefab, spawnPoint, Quaternion.identity);
+            newTomato.SetActive(true);
+        }
+    }
+    void SpawnLettuceCopy()
+    {
+        if (lettuceSlicePrefab != null)
+        {
+            Debug.Log("creadp");
+            Debug.Log("spawnPoint = " + spawnPoint);
+            GameObject newTomato = Instantiate(lettuceSlicePrefab, spawnPoint, Quaternion.identity);
             newTomato.SetActive(true);
         }
     }

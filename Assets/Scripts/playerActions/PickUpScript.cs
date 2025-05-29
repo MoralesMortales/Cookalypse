@@ -67,7 +67,7 @@ public class PickUpScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (heldObj == null || currentToolData == "Plate")
+            if (heldObj == null)
             {
                 Debug.Log("using");
                 RaycastHit hit;
@@ -104,15 +104,6 @@ public class PickUpScript : MonoBehaviour
                                 }
                             }
                         }
-                        else if (objTags.HasTag("ingredientPlus"))
-                        {
-                            Debug.Log("its important");
-                            dishCode = FindObjectOfType<dish>();
-
-                            dishCode.addIngredientPlusToDish(hit.transform.gameObject);
-
-                            //PickUpObject(hit.transform.gameObject);
-                        }
                         else
                         {
                             PickUpObject(hit.transform.gameObject);
@@ -130,6 +121,37 @@ public class PickUpScript : MonoBehaviour
                 }
             }
         }
+        if (currentToolData == "Plate")
+        {
+            RaycastHit hit;
+            if (
+                Physics.Raycast(
+                    transform.position,
+                    transform.TransformDirection(Vector3.forward),
+                    out hit,
+                    pickUpRange
+                )
+            )
+            {
+                AssignMultipleTags objTags = hit.transform.GetComponent<AssignMultipleTags>();
+                if (
+                    objTags != null
+                    && objTags.HasTag("ingredientPlus")
+                    && Input.GetKeyDown(KeyCode.F)
+                )
+                {
+                    Debug.Log("Tomando ingrediente...");
+                    dishCode = FindObjectOfType<dish>();
+
+                    dishCode.addIngredientPlusToDish(hit.transform.gameObject);
+
+                    //PickUpObject(hit.transform.gameObject);
+                }
+            }
+
+            Debug.Log("hla");
+        }
+
         if (heldObj != null)
         {
             MoveObject();

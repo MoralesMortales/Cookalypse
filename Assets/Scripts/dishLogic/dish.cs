@@ -5,6 +5,7 @@ public class dish : MonoBehaviour
 {
     private bool dishActive;
     public PickUpScript toolUsing;
+    public string currentDish;
 
     [System.Serializable]
     public class DishData
@@ -42,12 +43,12 @@ public class dish : MonoBehaviour
 
     public void addIngredientPlusToDish(GameObject ingredientPlus)
     {
-        Debug.Log("holas, tienes ", ingredientPlus);
         AssignMultipleTags objTags = ingredientPlus.GetComponent<AssignMultipleTags>();
 
         if (objTags.HasTag("friedEgg") && dishActive)
         {
             Debug.Log("mostrar fried egg");
+            currentDish = "omelette";
 
             for (int i = 0; i < dishDatabase.Count; i++)
             {
@@ -55,6 +56,25 @@ public class dish : MonoBehaviour
                 {
                     Debug.Log("huevito sancochado");
                     dishDatabase[i].dish.SetActive(true);
+
+                    // Desactivar ambos: toolOnGrab y toolOnView del plato
+                    if (toolUsing != null)
+                    {
+                        // Buscar el plato en la toolDatabase
+                        foreach (var tool in toolUsing.toolDatabase)
+                        {
+                            if (tool.toolOnView.GetComponent<AssignMultipleTags>().HasTag("plate"))
+                            {
+                                tool.toolOnGrab.SetActive(false);
+                                tool.toolOnView.SetActive(false);
+                                break;
+                            }
+                        }
+
+                        toolUsing.currentToolData = "Aire"; // Resetear la herramienta actual
+                        dishActive = false;
+                    }
+
                     break;
                 }
             }
@@ -62,6 +82,7 @@ public class dish : MonoBehaviour
         else if (objTags.HasTag("tomatoSlice") && dishActive)
         {
             Debug.Log("mostrar tomatoSlice");
+            currentDish = "tomato";
         }
     }
 }

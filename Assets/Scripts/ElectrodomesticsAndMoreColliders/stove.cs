@@ -89,10 +89,13 @@ public class stove : MonoBehaviour
         if (foodObject.HasTag("egg"))
         {
             food = "egg";
+            Debug.Log("hueb-[]");
         }
         else if (foodObject.HasTag("meat"))
         {
             food = "meat";
+            Debug.Log("carne");
+
         }
         else
         {
@@ -109,6 +112,13 @@ public class stove : MonoBehaviour
                 eggFried.SetActive(true);
                 otherObjectFood.gameObject.SetActive(false);
                 eggFried.transform.position = spawnPoint;
+            }
+            else if (food == "meat")
+            {
+                Debug.Log("meat");
+                wellFryedMeat.SetActive(true);
+                otherObjectFood.gameObject.SetActive(false);
+                wellFryedMeat.transform.position = spawnPoint;
             }
         }
         else { }
